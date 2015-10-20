@@ -7,12 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -46,6 +45,11 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
         configurer.enable();
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry){
+        registry.addInterceptor(new LocaleChangeInterceptor());
+    }
+
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver getMultipartResolver(){
         return new CommonsMultipartResolver();
@@ -76,7 +80,13 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
         return messageConverter;
     }
 
-
+    @Bean(name = "factoryBean")
+    public JndiObjectFactoryBean getFactoryBean(){
+        JndiObjectFactoryBean jndiObjectFactoryBean = new JndiObjectFactoryBean();
+        jndiObjectFactoryBean.setJndiName("java:comp/env/jdbc/connect2");
+        jndiObjectFactoryBean.setResourceRef(true);
+        return jndiObjectFactoryBean;
+    }
 
 
 
