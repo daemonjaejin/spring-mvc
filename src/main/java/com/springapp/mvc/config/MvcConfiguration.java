@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -61,5 +65,20 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
         sessionLocaleResolver.setDefaultLocale(new Locale("ko"));
         return sessionLocaleResolver;
     }
+
+    @Bean(name = "messageConverter")
+    public StringHttpMessageConverter getMessageConverter(){
+        StringHttpMessageConverter messageConverter = new StringHttpMessageConverter();
+        List<MediaType> list = new ArrayList<MediaType>();
+        list.add(MediaType.valueOf("text/plain;charset=UTF-8"));
+        list.add(MediaType.valueOf("text/html;charset=UTF-8"));
+        messageConverter.setSupportedMediaTypes(list);
+        return messageConverter;
+    }
+
+
+
+
+
 
 }
