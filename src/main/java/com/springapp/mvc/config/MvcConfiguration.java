@@ -2,6 +2,7 @@ package com.springapp.mvc.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -29,9 +30,13 @@ import java.util.Properties;
 /**
  * Created by jin on 15. 10. 13..
  */
+@EnableWebMvc //mvc:annotation-driven
+@EnableAsync
 @Configuration
-@ComponentScan("com.springapp.mvc")
-@EnableWebMvc
+@ComponentScan(
+        basePackages = "com.springapp.mvc"
+        , excludeFilters = @ComponentScan.Filter(Configuration.class)
+)
 public class MvcConfiguration extends WebMvcConfigurerAdapter{
 
     /**
@@ -158,6 +163,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
      * @see org.hibernate.Hibernate
      * */
     @Bean(name = "transactionManagerHibernate")
+    @Autowired
     public HibernateTransactionManager getTransactionManagerHibernate() {
         logger.info("getTransactionManagerHibernate!!!");
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
