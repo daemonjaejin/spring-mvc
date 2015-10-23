@@ -25,8 +25,9 @@ public class TestController {
             System.out.println("toString() : " + testVo.toString());
         }catch (Exception e){
             System.out.println("message : "  + e.getMessage());
+        }finally {
+            model.addAttribute("message", "Hello world!");
         }
-        model.addAttribute("message", "Hello world!");
         return "hello";
     }
 

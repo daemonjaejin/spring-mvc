@@ -10,13 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by jin on 15. 10. 21..
  */
 @Service
+@Transactional
 public class TestServiceImpl implements TestService {
 
     @Autowired
     private TestDao testDao;
 
-    @Override
-    @Transactional(value = "txName", readOnly = true)
     public TestVo select() throws Exception{
         return testDao.select();
     }
