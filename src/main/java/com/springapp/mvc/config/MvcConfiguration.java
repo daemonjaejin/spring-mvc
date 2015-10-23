@@ -5,6 +5,8 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -20,6 +22,8 @@ import java.util.Locale;
  * Created by jin on 15. 10. 13..
  */
 @EnableWebMvc //mvc:annotation-driven
+@EnableAsync
+@EnableTransactionManagement
 @Configuration
 @Import({ DataBaseConfig.class })
 @ComponentScan("com.springapp.mvc.*")
