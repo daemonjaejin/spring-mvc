@@ -22,11 +22,11 @@ public class TestController {
     public String printWelcome(ModelMap model) {
         try {
             TestVo testVo = testService.select();
-            System.out.println("toString() : " + testVo.toString());
+            model.addAttribute("testVo", testVo);
         }catch (Exception e){
             System.out.println("message : "  + e.getMessage());
         }finally {
-            model.addAttribute("message", "Hello world!");
+            model.addAttribute("message", "Test!");
         }
         return "hello";
     }

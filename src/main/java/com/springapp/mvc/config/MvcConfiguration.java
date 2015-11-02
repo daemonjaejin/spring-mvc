@@ -76,7 +76,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
     /**
      * @see org.springframework.web.multipart.commons.CommonsMultipartResolver
      * */
-    @Bean(name = "multipartResolver")
+    @Bean
     public CommonsMultipartResolver getMultipartResolver(){
         logger.info("CommonsMultipartResolver!!!");
         return new CommonsMultipartResolver();
@@ -85,7 +85,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
     /**
      * @see org.springframework.context.support.ReloadableResourceBundleMessageSource
      * */
-    @Bean(name = "messageSource")
+    @Bean
     public ReloadableResourceBundleMessageSource getMessageSource(){
         logger.info("getMessageSource!!!");
         ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
@@ -97,7 +97,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
     /**
      * @see org.springframework.web.servlet.i18n.SessionLocaleResolver
      * */
-    @Bean(name = "localeResolver")
+    @Bean
     public SessionLocaleResolver getSessionResolver(){
         logger.info("getSessionResolver!!!");
         SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
@@ -108,7 +108,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
     /**
      * @see org.springframework.http.converter.StringHttpMessageConverter
      * */
-    @Bean(name = "messageConverter")
+    @Bean
     public StringHttpMessageConverter getMessageConverter(){
         logger.info("getMessageConverter!!!");
         StringHttpMessageConverter messageConverter = new StringHttpMessageConverter();

@@ -18,11 +18,17 @@ import javax.servlet.ServletRegistration;
  */
 public class AppInitializer implements WebApplicationInitializer{
 
-    private Logger log = Logger.getLogger(this.getClass());
+    /**
+     * @see org.apache.log4j.Logger
+     * */
+    private Logger logger = Logger.getLogger(this.getClass());
 
+    /**
+     * @see javax.servlet.ServletContext
+     * */
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-
+        logger.info("onStartup!!!");
         WebApplicationContext context = getContext();
         servletContext.addListener(new ContextLoaderListener(context));
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("DispatcherServlet", new DispatcherServlet(context));
@@ -31,13 +37,21 @@ public class AppInitializer implements WebApplicationInitializer{
         this.addUtf8CharacterEncodingFilter(servletContext);
     }
 
+    /**
+     * @see org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+     * */
     private AnnotationConfigWebApplicationContext getContext() {
+        logger.info("getContext!!!");
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.setConfigLocation("com.springapp.mvc.config.MvcConfiguration");
         return context;
     }
 
+    /**
+     * @see javax.servlet.FilterRegistration
+     * */
     private void addUtf8CharacterEncodingFilter(ServletContext servletContext){
+        logger.info("addUtf8CharacterEncodingFilter!!!");
         FilterRegistration.Dynamic filter = servletContext.addFilter("CHARACTER_ENCODING_FILTER", CharacterEncodingFilter.class);
         filter.setInitParameter("encoding", "UTF-8");
         filter.setInitParameter("forceEncoding", "true");
